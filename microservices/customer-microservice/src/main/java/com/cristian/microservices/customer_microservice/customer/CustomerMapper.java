@@ -16,4 +16,7 @@ public class CustomerMapper {
                 .city(request.city())
                 .build();
     }
+
+    public CustomerResponse toCustomerResponse(Customer customer) {
+    }
 }
