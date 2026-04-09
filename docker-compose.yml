@@ -7,8 +7,9 @@ services:
     volumes:
       - mongo:/data
     restart: always
-  # - MONGO_INITDB_ROOT_USERNAME=root
-  # - MONGO_INITDB_ROOT_PASSWORD=pass
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=pass
 
 volumes:
   mongo:

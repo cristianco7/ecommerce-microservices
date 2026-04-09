@@ -1,8 +1,6 @@
 package com.cristian.microservices.customer_microservice.customer;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.jspecify.annotations.Nullable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,10 +23,16 @@ public class CustomerService {
                 .orElseThrow();
     }
 
-    public  List<CustomerResponse> getCustomers() {
+    public List<CustomerResponse> getCustomers() {
+        return repository.findAll().stream()
+                .map(mapper::toCustomerResponse)
+                .toList();
     }
 
 
     public void deleteCustomerById(String customerId) {
+        repository.findById(customerId)
+                .orElseThrow();
+        repository.deleteById(customerId);
     }
 }
