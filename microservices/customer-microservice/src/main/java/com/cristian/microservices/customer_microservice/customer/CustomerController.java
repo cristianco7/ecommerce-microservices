@@ -15,28 +15,28 @@ public class CustomerController {
     private final CustomerService service;
 
     @PostMapping
-    public ResponseEntity<String> createCustomer(@RequestBody @Valid CustomerRequest request) {
-        return ResponseEntity.ok(service.saveCustomer(request));
+    public ResponseEntity<String> createCustomer(@Valid @RequestBody CustomerRequest request) {
+        return ResponseEntity.ok(service.createCustomer(request));
     }
 
     @GetMapping("/{customerId}")
-    public ResponseEntity<CustomerResponse> getCustomerById(@PathVariable("customerId") String customerId){
+    public ResponseEntity<CustomerResponse> getCustomerById(@PathVariable String customerId) {
         return ResponseEntity.ok(service.getCustomerById(customerId));
     }
 
     @GetMapping
-    public ResponseEntity<List<CustomerResponse>> getCustomers(){
+    public ResponseEntity<List<CustomerResponse>> getCustomers() {
         return ResponseEntity.ok(service.getCustomers());
     }
 
     @PutMapping
-    public ResponseEntity<Void> updateCustomer(@RequestBody @Valid CustomerRequest request){
-        service.saveCustomer(request);
+    public ResponseEntity<Void> updateCustomer(@Valid @RequestBody CustomerRequest request) {
+        service.updateCustomer(request);
         return ResponseEntity.accepted().build();
     }
 
     @DeleteMapping("/{customerId}")
-    public ResponseEntity<Void> deleteCustomerById(@PathVariable("customerId") String customerId){
+    public ResponseEntity<Void> deleteCustomerById(@PathVariable String customerId) {
         service.deleteCustomerById(customerId);
         return ResponseEntity.accepted().build();
     }

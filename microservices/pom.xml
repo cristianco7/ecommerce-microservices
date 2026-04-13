@@ -16,6 +16,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>customer-microservice</module>
+        <module>common-exceptions</module>
     </modules>
     <properties>
         <spring-cloud.version>2025.1.1</spring-cloud.version>
