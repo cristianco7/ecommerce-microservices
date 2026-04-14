@@ -17,6 +17,7 @@
     <modules>
         <module>customer-microservice</module>
         <module>common-exceptions</module>
+        <module>product-microservice</module>
     </modules>
     <properties>
         <spring-cloud.version>2025.1.1</spring-cloud.version>
