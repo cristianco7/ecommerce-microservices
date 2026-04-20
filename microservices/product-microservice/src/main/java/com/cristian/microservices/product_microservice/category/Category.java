@@ -1,5 +1,6 @@
 package com.cristian.microservices.product_microservice.category;
 
+import com.cristian.microservices.product_microservice.product.Product;
 import jakarta.persistence.*;
 import lombok.*;
 

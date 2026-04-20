@@ -1,4 +1,4 @@
-package com.cristian.microservices.product_microservice.category;
+package com.cristian.microservices.product_microservice.product;
 
 import org.springframework.stereotype.Service;
 

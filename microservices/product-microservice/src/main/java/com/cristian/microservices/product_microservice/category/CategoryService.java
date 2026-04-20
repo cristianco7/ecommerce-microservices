@@ -1,5 +1,6 @@
 package com.cristian.microservices.product_microservice.category;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +14,20 @@ public class CategoryService {
 
 
     public List<CategoryReponse> getAllCategories() {
+        return repository.findAll().stream()
+                .map(mapper::toCategoryReponse)
+                .toList();
     }
 
     public Integer createCategory(CategoryRequest request) {
-        return null;
+        var categoryToCreate = mapper.toCategory(request);
+        categoryToCreate.setId(null);
+        var category = repository.save(categoryToCreate);
+        return category.getId();
+    }
+
+    public void updateCategory(@Valid CategoryRequest request) {
+     
+
     }
 }

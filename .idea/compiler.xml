@@ -3,6 +3,12 @@
   <component name="CompilerConfiguration">
     <annotationProcessing>
       <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="microservices (1) (com.cristian)" />
+      </profile>
       <profile name="Annotation profile for ecommerce" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
@@ -10,20 +16,13 @@
         <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.44/lombok-1.18.44.jar" />
         </processorPath>
-        <module name="config-server" />
+        <module name="customer-microservice" />
         <module name="discovery-server" />
         <module name="common-exceptions" />
         <module name="product-microservice" />
       </profile>
-      <profile name="Maven default annotation processors profile" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <module name="microservices (1) (com.cristian)" />
-      </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="customer-microservice" target="17" />
       <module name="microservices (1) (com.cristian.microservices)" target="17" />
       <module name="microservices (2) (com.cristian)" target="17" />
     </bytecodeTargetLevel>

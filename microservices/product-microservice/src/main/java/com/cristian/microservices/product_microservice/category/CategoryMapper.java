@@ -1,5 +1,6 @@
 package com.cristian.microservices.product_microservice.category;
 
+import com.cristian.microservices.product_microservice.product.ProductMapper;
 import org.springframework.stereotype.Service;
 
 @Service

@@ -13,14 +13,21 @@ import java.util.List;
 public class CategoryController {
     private final CategoryService service;
 
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<List<CategoryReponse>> getAllCategories(){
-        return ResponseEntity.of(service.getAllCategories());
+        return ResponseEntity.ok(service.getAllCategories());
     }
 
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<Integer> createCategory(@Valid @RequestBody CategoryRequest request){
         return ResponseEntity.ok(service.createCategory(request));
     }
+
+    @PutMapping
+    public ResponseEntity<Void> updateCategory(@Valid @RequestBody CategoryRequest request ){
+        service.updateCategory(request);
+        return ResponseEntity.accepted().build();
+    }
+
 
 }
