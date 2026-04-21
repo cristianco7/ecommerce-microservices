@@ -1,6 +1,5 @@
 package com.cristian.microservices.product_microservice.category;
 
-import com.cristian.microservices.product_microservice.product.ProductMapper;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,13 +13,20 @@ public class CategoryMapper {
                 .build();
     }
 
-    public CategoryReponse toCategoryReponse(Category category) {
-        return new CategoryReponse(
+    public CategoryResponse toCategoryResponse(Category category) {
+        return new CategoryResponse(
                 category.getId(),
                 category.getName(),
                 category.getDescription(),
                 category.getProducts().stream()
-                        .map(ProductMapper::toProductReponse)
+                        .map(product -> new CategoryProductResponse(
+                                product.getId(),
+                                product.getName(),
+                                product.getDescription(),
+                                product.getPrice(),
+                                product.getStock(),
+                                product.getImageUrl()
+                                ))
                         .toList()
         );
     }

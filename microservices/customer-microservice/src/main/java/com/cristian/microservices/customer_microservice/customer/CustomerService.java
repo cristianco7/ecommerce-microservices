@@ -25,11 +25,18 @@ public class CustomerService {
             throw new IllegalArgumentException("Customer id is required for update");
         }
 
-        repository.findById(request.id())
+        Customer customer = repository.findById(request.id())
                 .orElseThrow(() -> new CustomerNotFoundException(
                         String.format("Customer with id %s not found", request.id())));
 
-        repository.save(mapper.toCustomer(request));
+        customer.setAddress(request.address());
+        customer.setCity(request.city());
+        customer.setEmail(request.email());
+        customer.setFirstName(request.firstName());
+        customer.setLastName(request.lastName());
+        customer.setPhone(request.phone());
+
+        repository.save(customer);
     }
 
     public CustomerResponse getCustomerById(String customerId) {
@@ -47,9 +54,13 @@ public class CustomerService {
 
 
     public void deleteCustomerById(String customerId) {
-        repository.findById(customerId)
+        if (customerId == null || customerId.isBlank()) {
+            throw new IllegalArgumentException("Customer id is required for delete");
+        }
+
+        Customer customer =repository.findById(customerId)
                 .orElseThrow(() -> new CustomerNotFoundException(
                         String.format("Customer with id %s not found", customerId)));
-        repository.deleteById(customerId);
+        repository.delete(customer);
     }
 }

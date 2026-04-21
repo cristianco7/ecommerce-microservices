@@ -1,10 +1,11 @@
 package com.cristian.microservices.product_microservice.product;
 
+import com.cristian.microservices.product_microservice.category.Category;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ProductMapper {
-    public static ProductResponse toProductReponse(Product product) {
+    public ProductResponse toProductResponse(Product product) {
         return new ProductResponse(
                 product.getId(),
                 product.getName(),
@@ -16,5 +17,19 @@ public class ProductMapper {
                 product.getCategory().getDescription(),
                 product.getCategory().getName()
         );
+    }
+
+    public Product toProduct(ProductRequest request) {
+        return Product.builder()
+                .id(request.id())
+                .name(request.name())
+                .description(request.description())
+                .price(request.price())
+                .stock(request.stock())
+                .imageUrl(request.imageUrl())
+                .category(Category.builder()
+                        .id(request.categoryId())
+                        .build())
+                .build();
     }
 }

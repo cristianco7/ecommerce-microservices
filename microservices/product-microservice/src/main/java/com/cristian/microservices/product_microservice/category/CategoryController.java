@@ -14,7 +14,7 @@ public class CategoryController {
     private final CategoryService service;
 
     @GetMapping
-    public ResponseEntity<List<CategoryReponse>> getAllCategories(){
+    public ResponseEntity<List<CategoryResponse>> getAllCategories(){
         return ResponseEntity.ok(service.getAllCategories());
     }
 
@@ -27,6 +27,17 @@ public class CategoryController {
     public ResponseEntity<Void> updateCategory(@Valid @RequestBody CategoryRequest request ){
         service.updateCategory(request);
         return ResponseEntity.accepted().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCategory(@PathVariable Integer id){
+        service.deleteCategory(id);
+        return ResponseEntity.accepted().build();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CategoryResponse> getCategoryById(@PathVariable Integer id){
+        return ResponseEntity.ok(service.getCategoryById(id));
     }
 
 
