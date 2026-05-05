@@ -15,11 +15,20 @@ import java.util.HashMap;
 @RestControllerAdvice
 @Primary
 public class ProductExceptionHandler extends GlobalExceptionHandler {
+    @ExceptionHandler(CategoryNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handle(CategoryNotFoundException e) {
+        var errors = new HashMap<String, String>();
+        var fieldName = "product-service";
+        errors.put(fieldName, e.getMessage());
+        log.warn("Category not found: {}", e.toString());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(errors));
+    }
+
 
     @ExceptionHandler(ProductNotFoundException.class)
     public ResponseEntity<ErrorResponse> handle(ProductNotFoundException e) {
         var errors = new HashMap<String, String>();
-        var fieldName = "category";
+        var fieldName = "product-service";
         errors.put(fieldName, e.getMessage());
         log.warn("Product not found: {}", e.toString());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(errors));

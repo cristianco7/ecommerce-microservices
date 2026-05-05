@@ -7,9 +7,11 @@ public record ProductRequest(
         @NotNull(message = "Product name is required")
         String name,
         String description,
+        @NotNull(message = "Price cannot be null")
         Double price,
         Integer stock,
         String imageUrl,
+        @NotNull(message = "CategoryId cannot be null")
         Integer categoryId
         ) {
 }

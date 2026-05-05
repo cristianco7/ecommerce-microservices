@@ -28,7 +28,7 @@ public class CategoryService {
 
     public void updateCategory(CategoryRequest request) {
         if (request.id() == null) {
-            throw new IllegalArgumentException("Category id is required for update");
+            throw new CategoryNotFoundException("Category id is required for update");
         }
 
         Category category  = repository.findById(request.id())
@@ -44,7 +44,7 @@ public class CategoryService {
 
     public void deleteCategory(Integer categoryId) {
         if (categoryId == null) {
-            throw new IllegalArgumentException("categoryId id is required for delete");
+            throw new CategoryNotFoundException("categoryId id is required for delete");
         }
         Category category = repository.findById(categoryId)
                 .orElseThrow(() -> new CategoryNotFoundException(
@@ -54,7 +54,7 @@ public class CategoryService {
 
     public CategoryResponse getCategoryById(Integer categoryId) {
         if (categoryId == null) {
-            throw new IllegalArgumentException("Category id is required");
+            throw new CategoryNotFoundException("Category id is required");
         }
 
         return repository.findById(categoryId)

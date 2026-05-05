@@ -4,6 +4,8 @@ import com.cristian.microservices.product_microservice.category.Category;
 import com.cristian.microservices.product_microservice.category.CategoryRepository;
 import com.cristian.microservices.product_microservice.exceptions.CategoryNotFoundException;
 import com.cristian.microservices.product_microservice.exceptions.ProductNotFoundException;
+import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +33,7 @@ public class ProductService {
 
     public void updateProduct(ProductRequest request) {
         if (request.id() == null) {
-            throw new IllegalArgumentException("Product id is required for update");
+            throw new ProductNotFoundException("Product id is required for update");
         }
 
         Product product = repository.findById(request.id())
@@ -48,11 +50,13 @@ public class ProductService {
         product.setPrice(request.price());
         product.setStock(request.stock());
         product.setCategory(category);
+
+        repository.save(product);
     }
 
     public void deleteProduct(Integer productId) {
         if (productId == null) {
-            throw new IllegalArgumentException("Product id is required for delete");
+            throw new ProductNotFoundException("Product id is required for delete");
         }
 
         Product product = repository.findById(productId)
@@ -64,7 +68,7 @@ public class ProductService {
 
     public ProductResponse getProductById(Integer productId) {
         if (productId == null) {
-            throw new IllegalArgumentException("Product id is required");
+            throw new ProductNotFoundException("Product id is required");
         }
         return repository.findById(productId)
                 .map(mapper::toProductResponse)
@@ -73,4 +77,33 @@ public class ProductService {
 
     }
 
+    @Transactional
+    public void purchaseProduct(@Valid List<ProductQuantityRequest> request) {
+        for (ProductQuantityRequest item : request) {
+            Product product = repository.findById(item.productId())
+                    .orElseThrow(() -> new ProductNotFoundException("Product with ID %s not found".formatted(item.productId())));
+
+            if (item.quantity() < 0) {
+                throw new ProductNotFoundException("Restock quantity cannot be negative for product ID %s".formatted(item.productId()));
+            }
+            if (product.getStock() < item.quantity()) {
+                throw new ProductNotFoundException("Insufficient stock for product ID %s".formatted(item.productId()));
+            }
+
+            product.setStock(product.getStock() - item.quantity());
+        }
+    }
+
+    @Transactional
+    public void restockProduct(@Valid List<ProductQuantityRequest> request) {
+        for (ProductQuantityRequest item : request) {
+            Product product = repository.findById(item.productId())
+                    .orElseThrow(() -> new ProductNotFoundException("Product with ID %s not found".formatted(item.productId())));
+            if (item.quantity() < 0) {
+                throw new ProductNotFoundException("Restock quantity cannot be negative for product ID %s".formatted(item.productId()));
+            }
+            product.setStock(product.getStock() + item.quantity());
+        }
+
+    }
 }
