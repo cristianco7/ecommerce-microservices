@@ -6,14 +6,12 @@
         <groupId>com.cristian</groupId>
         <artifactId>ecommerce</artifactId>
         <version>0.0.1-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
 	</parent>
 	<groupId>com.cristian</groupId>
 	<artifactId>config-server</artifactId>
 	<name/>
 	<description/>
-	<properties>
-		<spring-cloud.version>2025.1.1</spring-cloud.version>
-	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
