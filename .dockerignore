@@ -1,0 +1,36 @@
+# Maven / build
+**/target/
+**/build/
+
+# Logs
+logs/
+**/logs/
+*.log
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Docker
+docker-compose.override.yml
+
+# Maven wrapper cache files (opcional)
+**/.mvn/wrapper/maven-wrapper.jar
+
+# Archivos temporales
+*.tmp
+*.swp
+*.env
+
+Dockerfile
+docker-compose.yml
+.dockerignore
