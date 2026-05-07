@@ -27,6 +27,23 @@ services:
       - "${POSTGRESQL_DB_PORT}:5432"
     networks:
       - microservices
+
+
+  config-server:
+    build:
+      context: .
+      dockerfile: ./config-server/Dockerfile
+    container_name: config-server
+    ports:
+      - "${CONFIG_SERVER_PORT}:8888"
+    networks:
+      - microservices
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://config-server:${CONFIG_SERVER_PORT}/actuator/health"]
+      interval: 20s
+      timeout: 3s
+      retries: 5
+    restart: on-failure
 volumes:
   mongo:
   postgres:
