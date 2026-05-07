@@ -4,6 +4,19 @@
 *.iws
 *.ipr
 out/
+.DS_Store
+target/
+logs/
+*.log
+
+# IntelliJ workspace files (específico)
+.idea/compiler.xml
+.idea/encodings.xml
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/misc.xml
+.idea/vcs.xml
+.idea/runConfigurations.xml
 
 # Maven
 target/
